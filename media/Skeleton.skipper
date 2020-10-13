@@ -3,22 +3,23 @@
   <module name="\Db" local-name="Db" namespace="\Db\Entity" local-namespace="Db\Entity" export-format="Doctrine2Xml" export-path="../module/Db/config/orm" uuid="d00cb29f-5c07-4fce-9064-d97945304c81">
     <region namespace="\Db\Entity" caption="User &amp; Permissions" uuid="186ad047-1738-4c4b-abcc-98e8d39caeb4">
       <entity name="\Db\Entity\User" local-name="User" namespace="\Db\Entity" uuid="2d486e09-e1e6-4064-910f-2c9d40e84b7e">
-        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="4d7ebd68-f0eb-4f78-921e-8709a7514d6a"/>
+        <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="4d7ebd68-f0eb-4f78-921e-8709a7514d6a"/>
         <field name="username" type="string" required="true" uuid="64d001d9-f755-4d21-83e8-38f635184c5f"/>
         <field name="email" type="string" required="true" uuid="c47eb8ac-8758-4423-9bc5-83486ff75d6b"/>
         <field name="password" type="string" required="true" uuid="8d7c5f1e-1026-4ea9-930b-b7a7affd124b"/>
         <field name="createdAt" type="datetime" required="true" uuid="76778dfe-1e97-450c-9ebd-a5fe8ac9c667"/>
       </entity>
       <entity name="\Db\Entity\Role" local-name="Role" namespace="\Db\Entity" uuid="236fda06-faf9-4f68-8751-3545bb1214b7">
-        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="bdf2f1b4-1799-47e2-8bd4-e2ecaabdfd5e"/>
+        <field name="id" type="bigint" required="true" unique="true" primary="true" uuid="bdf2f1b4-1799-47e2-8bd4-e2ecaabdfd5e"/>
         <field name="roleId" type="string" required="true" uuid="138181f4-a08a-4886-98eb-4ec0a10ca71b"/>
         <field name="description" type="string" uuid="8f601764-eaaf-4c1e-aa41-f944f82c8d39"/>
-        <field name="role_id" type="integer" uuid="8cacbf81-70bd-417a-9a10-b96e48cee297"/>
+        <field name="role_id" type="bigint" uuid="8cacbf81-70bd-417a-9a10-b96e48cee297"/>
       </entity>
       <entity name="\Db\Entity\UserToRole" local-name="UserToRole" namespace="\Db\Entity" uuid="ce374924-c751-4206-8063-6559815cec7b">
-        <field name="role_id" type="integer" required="true" primary="true" uuid="9abfe124-be44-4078-ba04-e7dad2372f3f"/>
-        <field name="user_id" type="integer" required="true" primary="true" uuid="2b090296-7f4a-4a93-81e0-f03ec6ed6bc7"/>
+        <field name="role_id" type="bigint" required="true" primary="true" uuid="9abfe124-be44-4078-ba04-e7dad2372f3f"/>
+        <field name="user_id" type="bigint" required="true" primary="true" uuid="2b090296-7f4a-4a93-81e0-f03ec6ed6bc7"/>
       </entity>
+      <comment caption="Role Fixture" description="guest&#10;user&#10;admin" uuid="455ac9fb-2012-472a-9d56-ec09dc51c210"/>
     </region>
     <association from="\Db\Entity\Role" to="\Db\Entity\Role" caption="Parent" inverse-alias="parent" many-owner="true" many-inverse="false" uuid="2673ab66-46c1-4e45-be9e-54101e05a2e6">
       <association-field from="role_id" to="id" uuid="0c246d3e-a1e6-45b6-80c7-f6b13ba05a50"/>
@@ -41,7 +42,8 @@
     <association uuid="6b2ceec2-f65b-4944-be20-613a797e5829" color="#969696"/>
     <association uuid="9daca6d8-8f09-4f97-bbfd-6db05bdf3e58" color="#969696"/>
     <association uuid="d9c8b226-5b7a-4991-adb8-f01509ffdc87" color="#969696"/>
-    <entity uuid="236fda06-faf9-4f68-8751-3545bb1214b7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="225" position-y="210" size-x="0" size-x2="98" size-y="0" size-y2="73"/>
+    <comment uuid="455ac9fb-2012-472a-9d56-ec09dc51c210" bg-color="#A0ECDD" position-x="155" position-y="210" size-x="0" size-x2="62" size-y="0" size-y2="66" txt-color="#000000"/>
+    <entity uuid="236fda06-faf9-4f68-8751-3545bb1214b7" bg-color="#FFFFFF" hdr-color="#0BC0A9" position-x="225" position-y="210" size-x="0" size-x2="98" size-y="0" size-y2="73"/>
     <entity uuid="2d486e09-e1e6-4064-910f-2c9d40e84b7e" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="26" position-y="38" size-x="0" size-x2="105" size-y="0" size-y2="73"/>
     <entity uuid="ce374924-c751-4206-8063-6559815cec7b" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="254" position-y="44" size-x="0" size-x2="89" size-y="0" size-y2="60"/>
     <many-to-many-association uuid="c07426d5-bff5-4c2d-b02c-1f5d9702d8d9" color="#969696"/>

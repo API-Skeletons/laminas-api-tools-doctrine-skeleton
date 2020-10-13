@@ -10,12 +10,12 @@ use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 class RoleFixture implements
     FixtureInterface
 {
-    const ADMIN_ID = 1;
-    const MEMBER_ID = 2;
-    const GUEST_ID = 3;
+    const GUEST_ID = 1;
+    const USER_ID = 2;
+    const ADMIN_ID = 3;
 
     const ADMIN = 'admin';
-    const MEMBER = 'members'; // <sic>
+    const USER = 'user';
     const GUEST = 'guest';
 
     public function load(ObjectManager $objectManager)
@@ -30,15 +30,15 @@ class RoleFixture implements
                 'description' => 'Anonymous',
             ],
             [
-                'id' => self::MEMBER_ID,
-                'roleId' => self::MEMBER,
+                'id' => self::USER_ID,
+                'roleId' => self::USER,
                 'parent' => self::GUEST_ID,
-                'description' => 'General Users',
+                'description' => 'Authenticated User',
             ],
             [
                 'id' => self::ADMIN_ID,
                 'roleId' => self::ADMIN,
-                'parent' => self::MEMBER_ID,
+                'parent' => self::USER_ID,
                 'description' => 'Administrator',
             ],
         ];
