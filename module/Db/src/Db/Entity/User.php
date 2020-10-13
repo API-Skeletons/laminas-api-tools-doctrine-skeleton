@@ -4,6 +4,7 @@ namespace Db\Entity;
 
 use ApiSkeletons\OAuth2\Doctrine\Entity\UserInterface as OAuth2UserInterface;
 use ApiSkeletons\OAuth2\Doctrine\Permissions\Acl\Role\ProviderInterface;
+use DateTime;
 use Zend\Stdlib\ArraySerializableInterface;
 
 /**
@@ -391,7 +392,7 @@ class User implements
      *
      * @return User
      */
-    public function setCreatedAt(datetime $createdAt)
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
 

@@ -61,7 +61,7 @@ final class AuthenticationAdapter implements
                 if ($user->hasRole(RoleFixture::ADMIN)) {
                     $webIdentity->setName(RoleFixture::ADMIN);
                 } else {
-                    $webIdentity->setName(RoleFixture::MEMBER);
+                    $webIdentity->setName(RoleFixture::USER);
                 }
 
                 return $webIdentity;

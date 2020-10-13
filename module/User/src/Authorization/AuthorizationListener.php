@@ -21,9 +21,9 @@ final class AuthorizationListener
 
         // Allow from all for oauth authentication
         $authorization->addResource('Laminas\ApiTools\OAuth2\Controller\Auth::authorize');
-        $authorization->allow(RoleFixture::MEMBER, 'Laminas\ApiTools\OAuth2\Controller\Auth::authorize');
+        $authorization->allow(RoleFixture::USER, 'Laminas\ApiTools\OAuth2\Controller\Auth::authorize');
 
         $authorization->addResource('Laminas\ApiTools\OAuth2\Controller\Auth::revoke');
-        $authorization->allow(RoleFixture::MEMBER, 'Laminas\ApiTools\OAuth2\Controller\Auth::revoke');
+        $authorization->allow(RoleFixture::USER, 'Laminas\ApiTools\OAuth2\Controller\Auth::revoke');
     }
 }

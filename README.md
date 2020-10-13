@@ -20,3 +20,22 @@ docker-sync start
 docker-compose up
 ```
 
+Connect to the docker container
+
+```
+.docker/connect
+```
+
+Create the database and install fixtures
+
+```
+php public/index.php migrations:migrate
+php public/index.php data-fixture:import default
+```
+
+For development create an admin user and default OAuth2 client
+
+```
+php public/index.php data-fixture:import development
+```
+

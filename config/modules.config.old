@@ -43,12 +43,10 @@ return array(
     'ApiSkeletons\\OAuth2\\Doctrine\\Permissions\\Acl',
     'SlmQueue',
     'SlmQueueDoctrine',
-    'ApiSkeletons\Doctrine\Hydrator\Strategy',
+    'ApiSkeletons\\Doctrine\\Hydrator\\Strategy',
     'ZfrCors',
     'Application',
     'Db',
-    'Queue',
-    'QueueApi',
     'User',
     'UserApi',
 );

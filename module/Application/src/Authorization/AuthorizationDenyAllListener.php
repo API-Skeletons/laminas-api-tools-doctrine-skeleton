@@ -16,6 +16,6 @@ final class AuthorizationDenyAllListener
         $authorization = $mvcAuthEvent->getAuthorizationService();
 
         // Deny from all
-        $authorization->deny();
+#        $authorization->deny();
     }
 }

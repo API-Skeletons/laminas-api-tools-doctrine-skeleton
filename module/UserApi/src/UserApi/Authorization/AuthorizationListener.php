@@ -16,6 +16,6 @@ final class AuthorizationListener
         $authorization->allow(RoleFixture::GUEST, 'UserApi\V1\Rpc\Oidc\Controller::oidc');
 
         $authorization->addResource('UserApi\V1\Rpc\Me\Controller::me');
-        $authorization->allow(RoleFixture::MEMBER, 'UserApi\V1\Rpc\Me\Controller::me', 'GET');
+        $authorization->allow(RoleFixture::USER, 'UserApi\V1\Rpc\Me\Controller::me', 'GET');
     }
 }
