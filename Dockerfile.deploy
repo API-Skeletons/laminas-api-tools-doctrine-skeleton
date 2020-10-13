@@ -1,0 +1,91 @@
+FROM php:7.3-apache
+
+LABEL maintainer="apiskeletons.com" \
+    org.label-schema.docker.dockerfile="/Dockerfile" \
+    org.label-schema.name="Reports API" \
+    org.label-schema.url="https://apiskeletons.com/" \
+    org.label-schema.vcs-url="https://github.com/api-skeletons/laminas-api-tools-doctrine-skeleton"
+
+## Update package information
+RUN apt-get update
+
+## Install console tools
+RUN apt-get install --yes vim default-mysql-client redis iputils-ping
+
+## Install servers
+RUN apt-get install --yes redis-server supervisor
+
+## Install certbot
+RUN apt-get update
+RUN apt-get install --yes --fix-missing software-properties-common
+RUN apt-get install --yes certbot python3-certbot-apache
+
+## Configure apache
+RUN a2enmod rewrite
+RUN a2enmod ssl
+RUN a2enmod socache_shmcb
+RUN mv /var/www/html /var/www/public
+COPY .docker/deploy/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY .docker/deploy/000-default-le-ssl.conf /etc/apache2/sites-available/000-default-le-ssl.conf
+RUN ln -s /etc/apache2/sites-available/000-default-le-ssl.conf /etc/apache2/sites-enabled/
+
+## Configure letsencrypt
+COPY .docker/deploy/letsencrypt.tgz /root/letsencrypt.tgz
+RUN tar -C /etc/letsencrypt -xzvf /root/letsencrypt.tgz
+RUN rm /root/letsencrypt.tgz
+
+## Configure supervisor queues
+COPY ./.docker/supervisor/* /etc/supervisor/conf.d/
+
+###
+## Additional PHP extensions.  To use these extensions uncomment the 
+## leading `# ` from the RUN commands.  These are provided to show 
+## examples of including other libraries into the PHP installation.
+###
+
+##  Install zip libraries and extension
+RUN apt-get install --yes git zlib1g-dev libzip-dev
+RUN docker-php-ext-install zip
+
+## Install i18n libraries and extensions
+RUN apt-get install --yes libicu-dev
+RUN docker-php-ext-configure intl 
+RUN docker-php-ext-install intl
+
+## Install mbstring for i18n string support
+RUN docker-php-ext-install mbstring
+
+## MySQL PDO support
+RUN docker-php-ext-install pdo_mysql
+
+## Redis support.  igbinary and libzstd-dev are only needed based on redis 
+## pecl options
+RUN pecl install igbinary
+RUN docker-php-ext-enable igbinary
+RUN apt-get install --yes libzstd-dev
+RUN pecl install redis
+RUN docker-php-ext-enable redis
+# RUN echo never > /sys/kernel/mm/transparent_hugepage/enabled
+
+## Install Composer
+RUN curl -sS https://getcomposer.org/installer \
+  | php -- --install-dir=/usr/local/bin --filename=composer
+
+ADD . /var/www
+WORKDIR /var/www
+RUN chmod 777 -R /var/www/data
+RUN rm -rf /var/www/data/cache/*
+
+## Configure application
+RUN composer install
+COPY .docker/deploy/local.php /var/www/config/autoload/local.php
+COPY .docker/deploy/oidc.local.php /var/www/config/autoload/oidc.local.php
+RUN rm config/development.config.php
+
+EXPOSE 80
+EXPOSE 443
+
+CMD service supervisor start && \
+    service redis-server start && \
+    service apache2 start && \
+    tail -f /var/log/apache2/access.log

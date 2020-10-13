@@ -1,0 +1,14 @@
+<?php
+
+return [
+    'oidc' => [
+        'issuer' => 'https://docker.localhost',
+        'authorization_endpoint' => 'https://docker.localhost/oauth/authorize',
+        'token_endpoint' => 'https://docker.localhost/oauth/token',
+        'userinfo_endpoint' => 'https://docker.localhost/me',
+        'scopes_supported' => [],
+        'response_types_supported' => [
+            'token'
+        ],
+    ],
+];

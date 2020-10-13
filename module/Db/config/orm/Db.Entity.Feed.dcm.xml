@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xsi="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Db\Entity\Feed" table="feeds">
+    <id name="id" type="integer">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="name" type="text" nullable="true"/>
+    <field name="userid" type="integer" nullable="true"/>
+    <field name="time" type="datetime" nullable="false"/>
+    <field name="value" type="float" nullable="true"/>
+    <field name="units" type="string" nullable="true"/>
+    <field name="min" type="integer" nullable="true"/>
+    <field name="max" type="integer" nullable="true"/>
+    <field name="portfolio" type="integer" nullable="true"/>
+    <field name="sensitivity" type="integer" nullable="true"/>
+    <field name="type" type="integer" nullable="true"/>
+    <field name="moreIsBetter" type="boolean" nullable="true" column="more_is_better"/>
+    <field name="apikeyGet" type="string" nullable="true" column="apikey_get"/>
+    <field name="apikeyPost" type="string" nullable="true" column="apikey_post"/>
+    <field name="isAlertable" type="boolean" nullable="true" column="is_alertable"/>
+    <field name="isCumulative" type="boolean" nullable="true" column="is_cumulative"/>
+    <field name="isSetpoint" type="boolean" nullable="true" column="is_setpoint"/>
+    <field name="setpoint" type="float" nullable="true"/>
+    <field name="active" type="boolean" nullable="true"/>
+    <field name="lastUpdate" type="datetime" nullable="true" column="last_update"/>
+    <one-to-many field="query" target-entity="Db\Entity\Query" mapped-by="feed"/>
+  </entity>
+</doctrine-mapping>

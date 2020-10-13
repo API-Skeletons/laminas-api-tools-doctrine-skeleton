@@ -1,0 +1,42 @@
+<?php
+
+return [
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'driverClass' => 'Doctrine\\DBAL\\Driver\\PDOMySql\\Driver',
+                'params' => [
+                    'user' => 'root',
+                    'password' => '123',
+                    'host' => 'mysql',
+                    'dbname' => 'zd7k9xp_monitor_data',
+                    'port' => '3306',
+                    'charset' => 'utf8mb4',
+                    'collate' => 'utf8mb4_unicode_ci',
+                ],
+            ],
+        ],
+        'configuration' => [
+            'orm_default' => [
+                'metadata_cache'    => 'array',
+                'query_cache'       => 'array',
+                'result_cache'      => 'array',
+#                'metadata_cache'    => 'db_redis',
+#                'query_cache'       => 'db_redis',
+#                'result_cache'      => 'db_redis',
+            ],
+        ],
+    ],
+
+    'redis' => [
+        'db' => [
+            'server' => 'redis',
+            'port' => '6379',
+        ],
+    ],
+
+    'session_config' => [
+        'phpSaveHandler' => 'redis',
+        'savePath' => 'tcp://redis:6379?weight=1&timeout=1',
+    ],
+];

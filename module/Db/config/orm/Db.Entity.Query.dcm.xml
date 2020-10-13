@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xsi="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Db\Entity\Query" table="queries">
+    <id name="id" type="integer">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="feedName" type="string" nullable="false" column="feed_name"/>
+    <field name="query" type="text" nullable="false"/>
+    <many-to-one field="feed" target-entity="Db\Entity\Feed" inversed-by="query">
+      <join-columns>
+        <join-column name="feed_id" referenced-column-name="id" nullable="false"/>
+      </join-columns>
+    </many-to-one>
+    <one-to-many field="queryResult" target-entity="Db\Entity\QueryResult" mapped-by="query"/>
+  </entity>
+</doctrine-mapping>

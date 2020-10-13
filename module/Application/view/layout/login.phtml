@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Laminas API Tools Doctrine Skeleton</title>
+    <link rel="icon" type="image/x-icon" href="/assets/database.svg">
+    <?php
+      echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0');
+
+      echo $this->headScript()
+          ->prependFile($this->basePath('/api-tools/js/jquery.min.js'));
+    ?>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+<body>
+  <?= $this->content ?>
+
+  <footer>
+      <div class="container center-block">
+        <div class="row">
+          <div class="col-md-4 offset-md-4">
+    <hr>
+            &copy; Copyright <?= date('Y') ?>
+            by <a href="https://apiskeletons.com">API Skeletons</a>
+         </div>
+      </div>
+    </div>
+  </footer>
+  <?= $this->inlineScript() ?>
+</body>
+</html>
