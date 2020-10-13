@@ -38,6 +38,7 @@
         "psr-4": {
             "Application\\": "module/Application/src/",
             "Db\\": "module/Db/src/Db/",
+            "DbApi\\": "module/DbApi/src/DbApi/",
             "User\\": "module/User/src/",
             "UserApi\\": "module/UserApi/src/UserApi/",
             "QueryApi\\": "module/QueryApi/src/QueryApi/"
