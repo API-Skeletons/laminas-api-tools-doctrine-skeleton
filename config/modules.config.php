@@ -47,9 +47,6 @@ return array(
     'ZfrCors',
     'Application',
     'Db',
-    'Queue',
-    'QueueApi',
     'User',
     'UserApi',
-    'QueryApi',
 );

@@ -22,6 +22,9 @@ services:
     image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=123
+      - MYSQL_DATABASE=api
+      - MYSQL_USER=api
+      - MYSQL_PASSWORD=123
     volumes:
       - ./../.mysql:/var/lib/mysql
       - ./.docker/custom.cnf:/etc/mysql/conf.d/custom.cnf

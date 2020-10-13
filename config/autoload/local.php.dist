@@ -1,15 +1,16 @@
 <?php
 
 return [
+    'wwwUrl' => 'http://docker.localhost:4200',
     'doctrine' => [
         'connection' => [
             'orm_default' => [
                 'driverClass' => 'Doctrine\\DBAL\\Driver\\PDOMySql\\Driver',
                 'params' => [
-                    'user' => 'root',
+                    'user' => 'api',
                     'password' => '123',
                     'host' => 'mysql',
-                    'dbname' => 'zd7k9xp_monitor_data',
+                    'dbname' => 'api',
                     'port' => '3306',
                     'charset' => 'utf8mb4',
                     'collate' => 'utf8mb4_unicode_ci',
@@ -21,9 +22,6 @@ return [
                 'metadata_cache'    => 'array',
                 'query_cache'       => 'array',
                 'result_cache'      => 'array',
-#                'metadata_cache'    => 'db_redis',
-#                'query_cache'       => 'db_redis',
-#                'result_cache'      => 'db_redis',
             ],
         ],
     ],

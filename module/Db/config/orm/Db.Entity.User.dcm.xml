@@ -1,30 +1,13 @@
 <?xml version="1.0"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xsi="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="Db\Entity\User" table="users">
+  <entity name="Db\Entity\User">
     <id name="id" type="integer">
       <generator strategy="AUTO"/>
     </id>
     <field name="username" type="string" nullable="false"/>
     <field name="email" type="string" nullable="false"/>
     <field name="password" type="string" nullable="false"/>
-    <field name="ipAddress" type="string" nullable="true" column="ip_address"/>
-    <field name="salt" type="string" nullable="true"/>
-    <field name="activationCode" type="string" nullable="true" column="activation_code"/>
-    <field name="forgottenPasswordCode" type="string" nullable="true" column="forgotten_password_code"/>
-    <field name="forgottenPasswordTime" type="integer" nullable="true" column="forgotten_password_time"/>
-    <field name="rememberCode" type="string" nullable="true" column="remember_code"/>
-    <field name="createdOn" type="integer" nullable="true" column="created_on"/>
-    <field name="lastLogin" type="integer" nullable="true" column="last_login"/>
-    <field name="active" type="boolean" nullable="true"/>
-    <field name="firstName" type="string" nullable="true" column="first_name"/>
-    <field name="lastName" type="string" nullable="true" column="last_name"/>
-    <field name="company" type="string" nullable="true"/>
-    <field name="phone" type="string" nullable="true"/>
-    <field name="apikeyRead" type="string" nullable="true" column="apikey_read"/>
-    <field name="apikeyWrite" type="string" nullable="true" column="apikey_write"/>
-    <field name="property" type="string" nullable="true"/>
-    <field name="equipment" type="text" nullable="true"/>
-    <field name="chartType" type="string" nullable="true" column="chart_type"/>
+    <field name="createdAt" type="datetime" nullable="false"/>
     <many-to-many field="role" target-entity="Db\Entity\Role" mapped-by="user"/>
   </entity>
 </doctrine-mapping>

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200716133324 extends AbstractMigration
+final class Version20201013214322 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,20 +20,53 @@ final class Version20200716133324 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         $this->addSql("
-            CREATE TABLE Queue (
-                id BIGINT AUTO_INCREMENT NOT NULL,
-                queue VARCHAR(255) NOT NULL,
-                data LONGTEXT NOT NULL,
-                status SMALLINT NOT NULL,
-                created DATETIME NOT NULL,
-                scheduled DATETIME NOT NULL,
-                executed DATETIME DEFAULT NULL,
-                finished DATETIME DEFAULT NULL,
-                priority BIGINT DEFAULT NULL,
-                message LONGTEXT DEFAULT NULL,
-                trace LONGTEXT DEFAULT NULL,
+            CREATE TABLE Role (
+                id INT AUTO_INCREMENT NOT NULL,
+                role_id INT DEFAULT NULL,
+                roleId VARCHAR(255) NOT NULL,
+                description VARCHAR(255) DEFAULT NULL,
+                INDEX IDX_F75B2554D60322AC (role_id),
                 PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+        ");
+
+        $this->addSql("
+            CREATE TABLE UserToRole (
+                role_id INT NOT NULL,
+                user_id INT NOT NULL,
+                INDEX IDX_CC07E582D60322AC (role_id),
+                INDEX IDX_CC07E582A76ED395 (user_id),
+                PRIMARY KEY(role_id, user_id)
+            ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+        ");
+
+        $this->addSql("
+            CREATE TABLE User (
+                id INT AUTO_INCREMENT NOT NULL,
+                username VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                password VARCHAR(255) NOT NULL,
+                createdAt DATETIME NOT NULL,
+                PRIMARY KEY(id)
+            ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+        ");
+
+        $this->addSql("
+            ALTER TABLE Role
+                ADD CONSTRAINT FK_F75B2554D60322AC FOREIGN KEY (role_id)
+                    REFERENCES Role (id)
+        ");
+
+        $this->addSql("
+            ALTER TABLE UserToRole
+                ADD CONSTRAINT FK_CC07E582D60322AC FOREIGN KEY (role_id)
+                    REFERENCES Role (id)
+        ");
+
+        $this->addSql("
+            ALTER TABLE UserToRole ADD
+                CONSTRAINT FK_CC07E582A76ED395 FOREIGN KEY (user_id)
+                    REFERENCES User (id)
         ");
 
         $this->addSql("
@@ -182,18 +215,12 @@ final class Version20200716133324 extends AbstractMigration
                     REFERENCES Client_OAuth2 (id) ON DELETE CASCADE
         ");
 
-##
-# The users table primary key is an int but OAuth2 uses bigint
-# so we cannot create referential integrity
-##
-
-/**
         $this->addSql("
             ALTER TABLE RefreshToken_OAuth2
                 ADD CONSTRAINT FK_EEBE59C9A76ED395 FOREIGN KEY (user_id)
-                    REFERENCES users (id) ON DELETE CASCADE
+                    REFERENCES User (id) ON DELETE CASCADE
         ");
-*/
+
         $this->addSql("
             ALTER TABLE Jwt_OAuth2
                 ADD CONSTRAINT FK_F220BE7A19EB6921 FOREIGN KEY (client_id)
@@ -259,13 +286,13 @@ final class Version20200716133324 extends AbstractMigration
                 ADD CONSTRAINT FK_C092BBF419EB6921 FOREIGN KEY (client_id)
                     REFERENCES Client_OAuth2 (id) ON DELETE CASCADE
         ");
-/**
+
         $this->addSql("
             ALTER TABLE AccessToken_OAuth2
                 ADD CONSTRAINT FK_C092BBF4A76ED395 FOREIGN KEY (user_id)
-                    REFERENCES users (id) ON DELETE CASCADE
+                    REFERENCES User (id) ON DELETE CASCADE
         ");
-*/
+
         $this->addSql("
             ALTER TABLE Jti_OAuth2
                 ADD CONSTRAINT FK_2C13A64519EB6921 FOREIGN KEY (client_id)
@@ -277,19 +304,18 @@ final class Version20200716133324 extends AbstractMigration
                 ADD CONSTRAINT FK_7DED2FDD19EB6921 FOREIGN KEY (client_id)
                     REFERENCES Client_OAuth2 (id) ON DELETE CASCADE
         ");
-/**
+
         $this->addSql("
             ALTER TABLE AuthorizationCode_OAuth2
                 ADD CONSTRAINT FK_7DED2FDDA76ED395 FOREIGN KEY (user_id)
-                    REFERENCES users (id) ON DELETE CASCADE
+                    REFERENCES User (id) ON DELETE CASCADE
         ");
 
         $this->addSql("
             ALTER TABLE Client_OAuth2
                 ADD CONSTRAINT FK_A66D48A8A76ED395 FOREIGN KEY (user_id)
-                    REFERENCES users (id) ON DELETE CASCADE
+                    REFERENCES User (id) ON DELETE CASCADE
         ");
-*/
     }
 
     public function down(Schema $schema) : void
